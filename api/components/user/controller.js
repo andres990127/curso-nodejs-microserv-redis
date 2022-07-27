@@ -1,9 +1,12 @@
 // Archivo para gestión de capa de controlador de 'Usuarios'
 
 // Se importa modulo para creación de Id's
-const nanoid = require('nanoid');
+const { nanoid } = require('nanoid')
 
-// Se declara el nombre de la tabla a buscar en base de datos
+// Se importa le modulo de autenticación
+const auth = require('../auth');
+
+// Se declara el nombre de la tabla a usar en base de datos
 const TABLA = 'user';
 
 /* ----------------------------------------------------------
@@ -31,22 +34,31 @@ module.exports = function(injectedStore){
         return store.get(TABLA, id);
     }
 
-    // Función para obtener un registro de la tabla por id
+    // Función para insertar un registro a la tabla
     async function upsert(body){
         const user = {
-            name: body.name
+            name: body.name,
+            username: body.username
         }
 
         if(body.id){
             user.id = body.id;
         }else {
-            user.id = nanoId();
+            user.id = nanoid();
+        }
+
+        if(body.password || body.username){
+            await auth.upsert({
+                id: user.id,
+                username: user.username,
+                password: body.password
+            })
         }
 
         return store.upsert(TABLA, user);
     }
 
-    // Función para obtener un registro de la tabla por id
+    // Función para borrar un registro de la tabla por id
     async function remove(id){
         return store.remove(TABLA, id);
     }

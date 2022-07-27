@@ -23,6 +23,9 @@ async function get(tabla, id){
 
 // Función para ingresar datos a una tabla
 async function upsert(tabla, data){
+    if(!db[tabla]){
+        db[tabla]=[];
+    }
     db[tabla].push(data);
 }
 
