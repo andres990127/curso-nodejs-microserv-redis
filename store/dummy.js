@@ -23,7 +23,7 @@ async function get(tabla, id){
 
 // Función para ingresar datos a una tabla
 async function upsert(tabla, data){
-    db[collection].push(data);
+    db[tabla].push(data);
 }
 
 // Función para remover un dato de la tabla
