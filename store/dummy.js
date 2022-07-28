@@ -12,7 +12,7 @@ const db = {
 
 // Función para mostrar todo el contenido de una tabla
 async function list(tabla){
-    return db[tabla];
+    return db[tabla] || [];
 }
 
 // Función para obtener el registro de una tabla
@@ -34,10 +34,19 @@ async function remove(tabla, id){
     return true;
 }
 
+// Función para hacer una consulta en una tabla
+async function query(tabla, q) {
+    let col = await list(tabla);
+    let keys = Object.keys(q);
+    let key = keys[0];
+    return col.filter(item => item[key] === q[key])[0] || null;
+}
+
 // Se exportan las funciones
 module.exports = {
     list,
     get,
     upsert,
     remove,
+    query
 }

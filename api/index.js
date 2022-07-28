@@ -15,6 +15,9 @@ const config = require('../config.js');
 // Se importa el componente 'User'
 const user = require('./components/user/network');
 
+// Se importa el componente 'Auth'
+const auth = require('./components/auth/network');
+
 // Se crea la app inicializando express
 const app = express();
 
@@ -26,6 +29,7 @@ const swaggerDoc = require('./swagger.json');
 
 // Se definen las rutas
 app.use('/api/user', user);
+app.use('/api/auth', auth);
 
 // Se define un endpoint para la documentación de swagger
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
