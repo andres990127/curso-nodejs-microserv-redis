@@ -1,5 +1,8 @@
 // Archivo para gestión de capa de controlador de 'Auth'
 
+// Se importa el modulo para encriptado y verficiación de hash
+const bcrypt = require('bcrypt');
+
 // Se importa el modulo para hacer login
 const auth = require('../../../auth');
 
@@ -24,11 +27,11 @@ module.exports = function (injectedStore) {
     // Función para comprobar existencia de usuario y contraseña en base de datos
     async function login(username, password){
         const data = await store.query(TABLA, { username: username });
-        if(data.password = password){
-            return auth.sign(data);
-        } else{
-            throw new Error('Información inválida');
+        const equals = await bcrypt.compare(password, data.password);
+        if (!equals) {
+          throw new Error('information not valid');    
         }
+        return auth.sign(data);
     }
 
     // Función para insertar un registro a la tabla
@@ -42,7 +45,7 @@ module.exports = function (injectedStore) {
         }
 
         if (data.password) {
-            authData.password = data.password;
+            authData.password = await bcrypt.hash(data.password, 10);
         }
 
         return store.upsert(TABLA, authData);
