@@ -3,8 +3,13 @@
 // Se importa el modulo de JWT
 const jwt = require('jsonwebtoken');
 
+// Se importa el modulo de variables de ambiente
 const config = require('../config');
 
+// Se importa el modulo para manejo de errores
+const error = require('../utils/error');
+
+// Se declara la variable con el secreto con el que se firman los JWT
 const secret = config.jwt.secret;
 
 // Funcion que retorna un JWT con payload de la data entrante
@@ -17,7 +22,7 @@ const check = {
         const decoded = decodeHeader(req);
 
         if (decoded.id !== owner) {
-            throw new Error('No puedes hacer esto');
+            throw error('No puedes hacer esto', 401);
         }
     }
 }

@@ -18,6 +18,9 @@ const user = require('./components/user/network');
 // Se importa el componente 'Auth'
 const auth = require('./components/auth/network');
 
+// Se importa el modulo para lanzamiento de errores
+const errors = require('../network/errors');
+
 // Se crea la app inicializando express
 const app = express();
 
@@ -33,6 +36,9 @@ app.use('/api/auth', auth);
 
 // Se define un endpoint para la documentación de swagger
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
+
+// Se define un middleware para manejo de errores
+app.use(errors);
 
 // Se define el puerto por el que escucha el servicio web
 app.listen(config.api.port, () => {
