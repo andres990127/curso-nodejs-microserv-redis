@@ -3,6 +3,8 @@
 // Se importa el modulo para utilizar el enrutador
 const express = require('express');
 
+const secure = require('./secure');
+
 // Se importa nuestro modulo de respuestas para Endpoints
 const response = require('../../../network/response');
 
@@ -34,6 +36,15 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
+    try {
+        const user = await controller.upsert(req.body)
+        response.success(req, res, user, 201)    
+    } catch (error) {
+        response.error(req, res, error.message, 500)
+    }
+})
+
+router.put("/", secure('update'), async (req, res) => {
     try {
         const user = await controller.upsert(req.body)
         response.success(req, res, user, 201)    
