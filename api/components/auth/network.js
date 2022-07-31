@@ -21,7 +21,7 @@ router.post("/login", async (req, res) => {
         const token = await controller.login(req.body.username, req.body.password);
         response.success(req, res, token, 200)    
     } catch (error) {
-        response.error(req, res, "Información invalida", 400)
+        response.error(req, res, error + "Información invalida", 400)
     }
 })
 

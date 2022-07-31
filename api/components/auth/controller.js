@@ -31,7 +31,7 @@ module.exports = function (injectedStore) {
         if (!equals) {
           throw new Error('information not valid');    
         }
-        return auth.sign(data);
+        return auth.sign(JSON.parse(JSON.stringify(data)));
     }
 
     // Función para insertar un registro a la tabla
