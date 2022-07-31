@@ -1,7 +1,7 @@
 // Archivo para gestionar dinamicamente la base de datos que se quiera usar
 
 // Se importa la base de datos
-const store = require('../../../store/dummy');
+const store = require('../../../store/mysql');
 
 // Se importa el controlador
 const ctrl = require('./controller');

@@ -17,6 +17,7 @@ function sign(data){
     return jwt.sign(data, secret);
 }
 
+// Constante con funciones de autenticación
 const check = {
     own: function(req, owner){
         const decoded = decodeHeader(req);
@@ -27,24 +28,7 @@ const check = {
     }
 }
 
-function verify(token){
-    return jwt.verify(token, secret);
-}
-
-function getToken(auth){
-    if(!auth){
-        throw new Error('No se está enviando token JWT');
-    }
-
-    if(auth.indexOf('Bearer ') === -1){
-        throw new Error('Formato inválido');
-    }
-
-    let token = auth.replace('Bearer ','');
-
-    return token;
-}
-
+// Función para obtener el JWT y retornar su payload desencriptado
 function decodeHeader(req){
     const authorization = req.headers.authorization || '';
     const token = getToken(authorization);
@@ -53,6 +37,26 @@ function decodeHeader(req){
     req.user = decoded;
 
     return decoded;
+}
+
+// Función para verificar que exista el JWT y sea tipo Bearer
+function getToken(auth){
+    if(!auth){
+        throw error('No se está enviando token JWT', 401);
+    }
+
+    if(auth.indexOf('Bearer ') === -1){
+        throw error('Formato inválido', 401);
+    }
+
+    let token = auth.replace('Bearer ','');
+
+    return token;
+}
+
+// Función para verificar que el token si fue firmado por el back
+function verify(token){
+    return jwt.verify(token, secret);
 }
 
 // Se exportan los modulos
