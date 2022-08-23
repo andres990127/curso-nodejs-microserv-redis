@@ -19,13 +19,18 @@ function sign(data){
 
 // Constante con funciones de autenticación
 const check = {
+    // Función que verifica que el id en el JWT sea el mismo que 'owner'
     own: function(req, owner){
         const decoded = decodeHeader(req);
 
         if (decoded.id !== owner) {
             throw error('No puedes hacer esto', 401);
         }
-    }
+    },
+    // Función que verifica que exista JWT
+    logged: function(req){
+        const decoded = decodeHeader(req);
+    },
 }
 
 // Función para obtener el JWT y retornar su payload desencriptado

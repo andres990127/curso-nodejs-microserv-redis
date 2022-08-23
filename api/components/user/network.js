@@ -44,6 +44,15 @@ router.post("/", async (req, res) => {
     }
 })
 
+router.post("/follow/:id", secure('follow'), async (req, res) => {
+    try {
+        const data = await controller.follow(req.user.id, req.params.id)
+        response.success(req, res, data, 201)    
+    } catch (error) {
+        response.error(req, res, error.message, 500)
+    }
+})
+
 router.put("/", secure('update'), async (req, res) => {
     try {
         const user = await controller.upsert(req.body)
