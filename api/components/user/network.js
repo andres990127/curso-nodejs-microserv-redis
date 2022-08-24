@@ -3,6 +3,7 @@
 // Se importa el modulo para utilizar el enrutador
 const express = require('express');
 
+// Se importa modulo para verificar el JWT
 const secure = require('./secure');
 
 // Se importa nuestro modulo de respuestas para Endpoints
@@ -30,6 +31,15 @@ router.get("/:id", async (req, res) => {
     try {
         const user = await controller.get(req.params.id)
         response.success(req, res, user, 200)    
+    } catch (error) {
+        response.error(req, res, error.message, 500)
+    }
+})
+
+router.get(":id/following", async (req, res) => {
+    try {
+        const data = await controller.following(req.params.id)
+        response.success(req, res, data, 201)    
     } catch (error) {
         response.error(req, res, error.message, 500)
     }
