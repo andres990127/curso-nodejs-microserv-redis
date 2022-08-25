@@ -12,5 +12,9 @@ module.exports = {
         user: process.env.MYSQL_USER || 'JdaoqCOEJ7',
         password: process.env.MYSQL_PASS || 'WQzLTbU3ZL',
         database: process.env.MYSQL_DB || 'JdaoqCOEJ7',
+    },
+    mysqlService:{
+        host: process.env.MYSQL_SRV_HOST || 'localhost',
+        port: process.env.MYSQL_SRV_PORT || 3001,
     }
 }

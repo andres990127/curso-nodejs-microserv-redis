@@ -116,6 +116,7 @@ function query(table, query, join) {
 module.exports = {
     list,
     get,
+    insert,
     upsert,
     //remove,
     query,
