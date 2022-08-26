@@ -4,7 +4,7 @@
 const { nanoid } = require('nanoid')
 
 // Se importa le modulo de autenticación
-const auth = require('../auth');
+const auth = require('../../../api/components/auth');
 
 // Se declara el nombre de la tabla a usar en base de datos
 const TABLA = 'post';

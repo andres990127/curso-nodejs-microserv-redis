@@ -18,9 +18,6 @@ const user = require('./components/user/network');
 // Se importa el componente 'Auth'
 const auth = require('./components/auth/network');
 
-// Se importa el componente 'Post'
-const post = require('./components/post/network');
-
 // Se importa el modulo para lanzamiento de errores
 const errors = require('../network/errors');
 
@@ -36,7 +33,6 @@ const swaggerDoc = require('./swagger.json');
 // Se definen las rutas
 app.use('/api/user', user);
 app.use('/api/auth', auth);
-app.use('/api/post', post);
 
 // Se define un endpoint para la documentación de swagger
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
