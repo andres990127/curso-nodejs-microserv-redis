@@ -1,4 +1,4 @@
-// Microservicio para base de datos
+// Microservicio para cache redis
 
 // Se importa el modulo para la creación del servicio web
 const express = require ('express');
@@ -22,6 +22,6 @@ app.use(bodyParser.json());
 app.use('/', router);
 
 // Se define el puerto por el que escucha el servicio web
-app.listen( config.mysqlService.port, () => {
-    console.log('Servicio de mysql escuchando en el puerto', config.mysqlService.port)
+app.listen( config.cacheService.port, () => {
+    console.log('Servicio de caché redis escuchando en el puerto', config.cacheService.port)
 })
